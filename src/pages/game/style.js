@@ -10,6 +10,13 @@ export const Container = styled.div`
 
     grid-template: "Score Score"
                    "Player Computer";
+
+
+    @media(max-width:768px) {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
 `
 
 export const Score = styled.div`
@@ -23,6 +30,7 @@ export const Score = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    
 `
 const HandsPlayer = styled.div`
     height: 70vh;
@@ -31,6 +39,10 @@ const HandsPlayer = styled.div`
     justify-content: space-evenly;
     align-items: center;
     width: 100%;
+
+    @media(max-width:768px) {
+        height: 45vh;
+    }
 `
 export const Player = styled(HandsPlayer)`
     grid-area: Player;
