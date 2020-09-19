@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const Container = styled.div`
     display: grid;
@@ -30,6 +30,22 @@ export const Score = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    h1#result {
+        transition: color 0.2s;
+    }
+
+    ${props => props.result === 'Você ganhou!' && css`
+        h1#result {
+            color: #1E5601;
+        }
+    `}
+
+    ${props => props.result === 'Você perdeu!' && css`
+        h1#result {
+            color: #70161D;
+        }
+    `}
     
 `
 const HandsPlayer = styled.div`
@@ -40,9 +56,23 @@ const HandsPlayer = styled.div`
     align-items: center;
     width: 100%;
 
+    > div {
+        transition: width 0.8s
+    }
+
     @media(max-width:768px) {
         height: 45vh;
     }
+
+    ${props => !props.playing && css`
+        > div {
+            width: 50%;
+
+            @media(max-width:768px) {
+                width: 45%;
+            }
+        }
+    `}
 `
 export const Player = styled(HandsPlayer)`
     grid-area: Player;

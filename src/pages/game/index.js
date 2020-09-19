@@ -12,8 +12,6 @@ function Game() {
 
     const { result, playing, scorePlayer, scoreComputer } = useContext(AppContext)
 
-    const [device, setDevice] = useState(() => (window.innerWidth > 768) ? 'desk' : 'mobile')
-
     const propHand = useSpring({
         from: { marginBottom: -250 },
         to: { marginBottom: 0 }
@@ -26,10 +24,10 @@ function Game() {
 
     return (
         <Container>
-            <Score>
+            <Score result={result} >
                 <animated.div style={propScore} >
                     {(!playing) ? (
-                        <h1> {
+                        <h1 id='result' > {
                             (result !== '') && (result)
                         } </h1>
                     ) : (<>
@@ -40,13 +38,14 @@ function Game() {
                 </animated.div>
             </Score>
 
-            <Player>
+            <Player playing={playing} >
                 <h1>Player</h1>
-                <animated.div style={propHand}  >
+                <animated.div style={propHand} >
                     <PlayerHand />
                 </animated.div>
             </Player>
-            <Computer>
+
+            <Computer playing={playing} >
                 <h1>Computer</h1>
                 <animated.div style={propHand}>
                     <ComputerHand />

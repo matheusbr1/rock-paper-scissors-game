@@ -1,5 +1,11 @@
 import React, { createContext, useState, useEffect } from 'react'
 
+import useSound from 'use-sound'
+
+import FailSound from '../assets/TunePocket-Hi-Tech-Error-Alert-5-Preview.mp3'
+import WinSound from '../assets/TunePocket-Click-18-Preview.mp3'
+import AtieFound from '../assets/TunePocket-Wet-Punch-3-Preview.mp3'
+
 export const AppContext = createContext()
 
 const AppProvider = ({ children }) => {
@@ -12,20 +18,42 @@ const AppProvider = ({ children }) => {
     const [scorePlayer, setScorePlayer] = useState(0)
     const [scoreComputer, setScoreComputer] = useState(0)
 
+    const [FailSoundEffect] = useSound(
+        FailSound, { volume: 0.25 }
+    );
+
+    const [ATieSoundEffect] = useSound(
+        AtieFound, { volume: 0.45 }
+    );
+
+    const [WinSoundEffect] = useSound(
+        WinSound, { volume: 0.45 }
+    );
+
+    var resetGame = () => setTimeout(function () {
+        console.log('Resetando game...')
+        setPlaying(true)
+        setResult('')
+        clearTimeout(resetGame)
+    }, 3000)
+
     useEffect(() => {
         if (result === 'Você perdeu!') {
             setScoreComputer(scoreComputer + 1)
+            FailSoundEffect()
+            resetGame()
         }
+
+        if (result === 'Empate') {
+            ATieSoundEffect()
+            resetGame()
+        }
+
         if (result === 'Você ganhou!') {
             setScorePlayer(scorePlayer + 1)
+            WinSoundEffect()
+            resetGame()
         }
-
-        var resetGame = setInterval(function () {
-            console.log('Resetando game...')
-            setPlaying(true)
-            clearInterval(resetGame)
-        }, 3000)
-
     }, [result])
 
     useEffect(() => {

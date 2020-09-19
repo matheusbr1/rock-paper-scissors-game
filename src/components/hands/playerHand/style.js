@@ -3,13 +3,14 @@ import styled, { css } from 'styled-components'
 export const Container = styled.div`
 
     display: flex;
-    width: 100%100vh;
+    width: 100%;
     justify-content: space-evenly;
 
     img {
-        width: 100%;
+        width: 33%;
         height: 400px;
-        opacity:0.2
+        opacity:0.2;
+        transition: linear 0.05s;
     }
 
     img:hover {
@@ -18,11 +19,13 @@ export const Container = styled.div`
 
     ${props => props.playing ? css`
         img {
-            opacity:0.2
+            opacity:0.2;
         }
     ` : css`
         img {
-            opacity:1
+            opacity:1;
+            transition: none;
+            width: 100%;
         }
     `}
 
